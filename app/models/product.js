@@ -5,6 +5,8 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 const Mixed = Schema.Types.Mixed;
 
+const Money = require('./money').schema;
+
 const commonHelper = require('../helpers/common');
 
 const ProductSchema = new Schema({
