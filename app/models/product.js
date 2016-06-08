@@ -12,6 +12,7 @@ const commonHelper = require('../helpers/common');
 const ProductSchema = new Schema({
 	sku: { type: String, required: true },
 	category: { type: String },
+	title: { type: String, required: true },
 	slug: { type: String },
 	images: { type: [
 		{
@@ -20,7 +21,7 @@ const ProductSchema = new Schema({
 		}
 	] },
 	details: { 
-		title:        { type: String, required: true },
+		title:        { type: String },
 	  description:  { type: String },
 	  summary:      { type: String, required: true }
 	},
