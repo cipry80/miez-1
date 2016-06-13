@@ -41,7 +41,11 @@ class ProductService {
 		}
 
 		Product.find(query).skip(skip).limit(limit).exec(callback);
-	};
+	}
+
+	removeProduct(sku, callback) {
+		Product.remove({ sku: sku }, callback);
+	}
 }
 
 module.exports = ProductService;

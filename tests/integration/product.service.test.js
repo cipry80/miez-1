@@ -78,7 +78,17 @@ describe('Product Service', function(){
 
 	});
 
-	// it should update sku
+	it("should update product sku", (done) => {
+		const newSku = { sku: '1234567890' };
+
+		productService.updateProduct(productFixture.sku, newSku, (err, product) => {
+			if (err) throw err;
+
+			product.sku.should.equal(newSku.sku);
+			done();
+		});
+	});
+
 
 	it("should get all products", (done) => {
 		productService.getAllProducts((err, products) => {
@@ -89,4 +99,18 @@ describe('Product Service', function(){
 		});
 	});
 
+	// TODO: add more tests for get all products
+
+	it("should remove product by sku", (done) => {
+		productService.removeProduct('1234567890', (err) => {
+			if (err) throw err;
+
+			productService.getAllProducts((err, products) => {
+				if (err) throw err;
+
+				products.length.should.equal(0);
+				done();
+			});
+		})
+	});
 });
