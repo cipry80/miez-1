@@ -17,11 +17,8 @@ class ProductService {
 		this.findProductBySKU(sku, (err, product) => {
 			if (err) throw err;
 
-			var updatedData = Object.assign(data, product);
-
-			console.log(updatedData);
-
-			product.save(updatedData, callback);
+			let updatedData = Object.assign(product, data);
+			updatedData.save(callback);
 		});
 	}
 
@@ -33,7 +30,7 @@ class ProductService {
 			skip = 0;
 		}
 
-		if (typeof limit === function) {
+		if (typeof limit === 'function') {
 			callback = limit;
 			limit = 50;
 			skip = 0;

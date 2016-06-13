@@ -35,4 +35,4 @@ config/winston/environments/*
 
 .idea
 # tests
-tests/fixtures
+# tests/fixtures
