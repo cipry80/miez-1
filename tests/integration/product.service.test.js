@@ -11,11 +11,21 @@ const ProductService = require('../../app/services/product.service');
 describe('Product Service', function(){
 	let mongoose; 
 	let productService;
+	let Product;
 
 	before(function(done) {
 		mongoose = require('../../config/mongoose').init();
+		Product = mongoose.model('Product');
 		productService = new ProductService();
 		done();
+	});
+
+	after(function(done) {
+		Product.remove({}).exec((err) => {
+			if (err) throw err;
+			mongoose.connection.close();
+			done();
+		});
 	});
 
 	it('should instantiate a new Product Service', (done) => {
@@ -36,7 +46,13 @@ describe('Product Service', function(){
 		});
 	});
 
-	// it should not add products with duplicate ids
+	it('should not add products with duplicate skus', (done) => {
+		productService.addProduct(productFixture, (err, product) => {
+			should.exist(err);
+			err.code.should.equal(11000);
+			done();
+		});
+	});
 
 	it("should find product by sku", (done) => {
 		productService.findProductBySKU(productFixture.sku, (err, product) => {
@@ -63,4 +79,14 @@ describe('Product Service', function(){
 	});
 
 	// it should update sku
+
+	it("should get all products", (done) => {
+		productService.getAllProducts((err, products) => {
+			if (err) throw err;
+
+			products.length.should.equal(1);
+			done();
+		});
+	});
+
 });

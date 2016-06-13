@@ -10,7 +10,7 @@ const Money = require('./money').schema;
 const commonHelper = require('../helpers/common');
 
 const ProductSchema = new Schema({
-	sku: { type: String, required: true },
+	sku: { type: String, unique: true, required: true },
 	category: { type: String },
 	title: { type: String, required: true },
 	slug: { type: String },
